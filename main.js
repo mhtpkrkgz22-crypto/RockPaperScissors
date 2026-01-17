@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice(){
   let select = Math.floor(Math.random() * 3);
 
@@ -14,9 +17,6 @@ function getHumanChoice(){
   let choice = prompt("Write here rock, paper or scissors");
   return choice;
 }
-
-let humanScore = 0;
-let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
   humanChoice = humanChoice.toLowerCase();
@@ -38,14 +38,6 @@ function playRound(humanChoice, computerChoice) {
   }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playGame();
-
-console.log("Human: " + humanScore + " | Computer: " + computerScore);
-
-
 function playGame(){
  playRound(getHumanChoice(), getComputerChoice());
  playRound(getHumanChoice(), getComputerChoice());
@@ -53,7 +45,7 @@ function playGame(){
  playRound(getHumanChoice(), getComputerChoice());
  playRound(getHumanChoice(), getComputerChoice());
  
- console.log(humanScore, computerScore);
+ console.log("Human: " + humanScore + " | Computer: " + computerScore);
 
  if(humanScore > computerScore){
   console.log("You won! Because you are always perfect!!!")
@@ -61,3 +53,5 @@ function playGame(){
   console.log("You lost. Don't be sorry. Try again!!!")
  }
 }
+
+playGame();
