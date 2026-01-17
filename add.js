@@ -27,13 +27,9 @@ function playRound(humanChoice, computerChoice) {
 
   if(humanChoice === computerChoice){
     console.log("It's a tie. Both choice is: " + humanChoice);
-  }else if(humanChoice === "rock" && computerChoice === "scissors"){
-    humanScore++;
-    console.log("Congratulations. You win!");
-  }else if(humanChoice === "scissors" && computerChoice === "paper"){
-    humanScore++;
-    console.log("Congratulations. You win!");
-  }else if(humanChoice === "paper" && computerChoice === "rock"){
+  }else if(humanChoice === "rock" && computerChoice === "scissors" ||
+    humanChoice === "scissors" && computerChoice === "paper" ||
+    humanChoice === "paper" && computerChoice === "rock"){
     humanScore++;
     console.log("Congratulations. You win!");
   }else{
@@ -45,8 +41,23 @@ function playRound(humanChoice, computerChoice) {
 const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+playGame();
 
 console.log("Human: " + humanScore + " | Computer: " + computerScore);
 
 
+function playGame(){
+ playRound(getHumanChoice(), getComputerChoice());
+ playRound(getHumanChoice(), getComputerChoice());
+ playRound(getHumanChoice(), getComputerChoice());
+ playRound(getHumanChoice(), getComputerChoice());
+ playRound(getHumanChoice(), getComputerChoice());
+ 
+ console.log(humanScore, computerScore);
+
+ if(humanScore > computerScore){
+  console.log("You won! Because you are always perfect!!!")
+ }else{
+  console.log("You lost. Don't be sorry. Try again!!!")
+ }
+}
