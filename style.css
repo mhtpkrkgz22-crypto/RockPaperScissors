@@ -1,0 +1,141 @@
+body {
+    background-color: rgb(161, 246, 246);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#contant {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    color: #045757;
+}
+
+#stars-left, #stars-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+#stars-left {
+    margin-left: 80px;
+}
+
+#stars-left img, #stars-right img {
+    width: 100px;
+    height: auto;
+}
+
+#stars-right {
+    margin-right: 80px;
+}
+
+#container img {
+    width: 300px;
+    height: auto;
+    gap: 20px;
+}
+
+.icon {
+    margin: 0 15px;
+}
+
+#images button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#buttons button {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 100px;
+    height: auto;
+    padding: 20px;
+    margin-top: 50px;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    font-size: 36px;
+    color: #045757;
+    font-weight: bold;
+}
+
+#buttons button {
+    transition: transform 250ms ease;
+    will-change: transform;
+}
+
+#buttons button:hover {
+    background: none;
+    transform: translate(0, 0.375em);
+}
+
+#container #rock-icon, #container #paper-icon, #container #scissors-icon {
+    transition: transform 250ms ease-in-out;
+    will-change: transform;
+}
+
+#container #rock-icon:hover {
+    transform: translate(65px, 0) scale(1.1);
+}
+
+#container #paper-icon:hover {
+    transform: scale(1.1);
+}
+
+#container #scissors-icon:hover {
+    transform: translate(-65px, 0) scale(1.1);
+}
+
+.active {
+    transform: translate(150px, 0) scale(1.1);
+}
+
+.passive {
+    transform: none;
+}
+
+.not-selected {
+    opacity: 0.4;
+    transform: scale(0.8);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    width: 200px;
+    height: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.computer-choice {
+    animation: slideInRight 0.5s forwards;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(200px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.punch-icon {
+    width: 125px;
+    height: auto;
+}
+
+
+
+
