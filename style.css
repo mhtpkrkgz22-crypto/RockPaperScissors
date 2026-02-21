@@ -8,11 +8,6 @@ body {
     align-items: center;
 }
 
-#error-msg {
-    display: none;
-}
-
-
 body::before {
     content: "";
     background-image: url('icons/background.jpg');
@@ -62,6 +57,10 @@ h1 {
 
 #stars-right {
     margin-right: 80px;
+}
+
+#error-msg {
+    display: none;
 }
 
 #container img {
