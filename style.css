@@ -1,6 +1,31 @@
 body {
-    background-color: rgb(161, 246, 246);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#error-msg {
+    display: none;
+}
+
+
+body::before {
+    content: "";
+    background-image: url('icons/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
 }
 
 #contant {
@@ -14,7 +39,8 @@ h1 {
     justify-content: center;
     align-items: center;
     margin-top: 50px;
-    color: #045757;
+    color: #000000;
+    filter: drop-shadow(10px 15px 10px #000000cc);
 }
 
 #stars-left, #stars-right {
@@ -23,6 +49,7 @@ h1 {
     align-items: center;
     gap: 20px;
 }
+
 #stars-left {
     margin-left: 80px;
 }
@@ -30,6 +57,7 @@ h1 {
 #stars-left img, #stars-right img {
     width: 100px;
     height: auto;
+    filter: drop-shadow(10px 10px 10px #000000cc);
 }
 
 #stars-right {
@@ -40,6 +68,7 @@ h1 {
     width: 300px;
     height: auto;
     gap: 20px;
+    filter: drop-shadow(15px 20px 10px #000000cc);
 }
 
 .icon {
@@ -70,13 +99,13 @@ h1 {
     background: none;
     border: 0;
     font-size: 36px;
-    color: #045757;
+    color: #000000;
     font-weight: bold;
+    filter: drop-shadow(0 15px 10px #000000cc);
 }
 
 #buttons button {
     transition: transform 250ms ease;
-    will-change: transform;
 }
 
 #buttons button:hover {
@@ -86,7 +115,6 @@ h1 {
 
 #container #rock-icon, #container #paper-icon, #container #scissors-icon {
     transition: transform 250ms ease-in-out;
-    will-change: transform;
 }
 
 #container #rock-icon:hover {
@@ -109,13 +137,23 @@ h1 {
     transform: none;
 }
 
+.selected-rock {
+    transform: translate(65px, 0) scale(1.1);
+}
+
+.selected-paper {
+    transform: scale(1.1);
+}
+
+.selected-scissors {
+    transform: translate(-65px, 0) scale(1.1);
+}
+
 .not-selected {
     opacity: 0.4;
     transform: scale(0.8);
-    pointer-events: none;
+    filter: drop-shadow(0 0 0 transparent);
     transition: all 0.3s ease;
-    width: 200px;
-    height: auto;
 }
 
 .hidden {
