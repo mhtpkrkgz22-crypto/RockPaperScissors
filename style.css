@@ -33,7 +33,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin: 50px auto 0 auto;
     color: #000000;
     filter: drop-shadow(10px 15px 10px #000000cc);
 }
@@ -59,8 +59,16 @@ h1 {
     margin-right: 80px;
 }
 
-#error-msg {
-    display: none;
+.on-message-active {
+    opacity: 1 !important;
+}
+
+#message {
+    display: flex;
+    justify-content: center;
+    font-size: 36px;
+    color: #000000;
+    opacity: 0;
 }
 
 #container img {

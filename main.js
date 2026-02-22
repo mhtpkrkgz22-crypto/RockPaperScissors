@@ -1,6 +1,7 @@
 let humanScore = 0;
 let computerScore = 0;
-let humanChoice = "";
+let humanChoice = null;
+let round = 0;
 
 const contant = document.querySelector('#contant');
 const leftStars = document.querySelectorAll('.left');
@@ -12,101 +13,102 @@ const resetBtn = document.querySelector('#reset-btn');
 const rock = document.querySelector('#rock-icon');
 const paper = document.querySelector('#paper-icon');
 const scissors = document.querySelector('#scissors-icon');
+const message = document.querySelector('#message');
 
 
-function clear() {
-  
+function resetSelection() {
   [rock, paper, scissors].forEach(item => {
     item.classList.remove("active", "selected-rock", "selected-paper", "selected-scissors", "not-selected");
   });
 }
 
-rock.addEventListener("click", (e) => {
-  clear();
+rock.addEventListener("click", () => {
+  resetSelection();
   rock.classList.add("selected-rock");
   paper.classList.add("not-selected");
   scissors.classList.add("not-selected");
 
-  humanChoice = e.target.alt;
-  console.log(humanChoice);
+  humanChoice = "rock";
 });
 
-paper.addEventListener("click", (e) => {
-  clear();
+paper.addEventListener("click", () => {
+  resetSelection();
   paper.classList.add("selected-paper");
   rock.classList.add("not-selected");
   scissors.classList.add("not-selected");
 
-  humanChoice = e.target.alt;
-  console.log(humanChoice);
+  humanChoice = "paper";
 });
 
-scissors.addEventListener("click", (e) => {
-  clear();
+scissors.addEventListener("click", () => {
+  resetSelection();
   scissors.classList.add("selected-scissors");
   rock.classList.add("not-selected");
   paper.classList.add("not-selected");
 
-  humanChoice = e.target.alt;
-  console.log(humanChoice);
+  humanChoice = "scissors";
 });
 
-function getComputerChoice(){
+function getComputerChoice() {
+  const choices = ["rock", "paper", "scissors"];
   let select = Math.floor(Math.random() * 3);
-
-  if(select === 0){
-    return "rock";
-  }else if(select === 1){
-    return "paper";
-  }else{
-    return "scissors";
-  }
+  return choices[select];
 }
 
-function getHumanChoice(){
-  let choice = "";
-  return choice;
+function getMessage(msg){
+  message.classList.add('on-message-active');
+  message.textContent = msg;
 }
 
 function playRound(humanChoice, computerChoice) {
-  computerChoice = getComputerChoice();
-
-  if(humanChoice === computerChoice){
-    console.log("It's a tie. Both choice is: " + humanChoice);
-  }else if(humanChoice === "rock" && computerChoice === "scissors" ||
-    humanChoice === "scissors" && computerChoice === "paper" ||
-    humanChoice === "paper" && computerChoice === "rock"){
-    humanScore++;
-    console.log("Congratulations. You win!");
-  }else{
-    computerScore++;
-    console.log("Oh No! You lose!");
+  if(message) {
+    message.remove('.on-message-active');
   }
+
+  if (humanChoice === computerChoice) {
+    getMessage(`It's a tie. Both chose: ${humanChoice}`);
+  } else if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "scissors" && computerChoice === "paper") ||
+    (humanChoice === "paper" && computerChoice === "rock")
+  ) {
+    humanScore++;
+    getMessage(`Congratulations! 🎉 ${humanChoice} beats ${computerChoice}`)
+  } else {
+    computerScore++;
+    getMessage(`Ohh Noo! 🤖 ${computerChoice} beats ${humanChoice}`)
+  }
+
+  round++;
+
+  container.prepend(message);
+  
 }
 
+playBtn.addEventListener("click", () => {
+  if (!humanChoice) {
+    getMessage("⚠️ Please, Choice Any Icon! ⚠️");
+    return;
+  } else {
+    message.remove('.on-message-active');
+  }
+  if (humanScore === 5 || computerScore === 5) return;
 
+  const comp = getComputerChoice();
+  playRound(humanChoice, comp);
 
+  if(humanScore === 5 || computerScore === 5) {
+    message.remove('#message');
+    resetSelection();
 
-
-/*function playGame(){
-
-
-
-  for(let i = 0; i < 5; i++) {
-    playRound(getHumanChoice(), getComputerChoice());
-
-    console.log("Human: " + humanScore + " | Computer: " + computerScore);
-
-    if(humanScore > computerScore){
-      console.log("You won! Because you are always perfect!!!");
-    }else{
-      console.log("You lost. Don't be sorry. Try again!!!");
+    if (humanScore === 5 && computerScore === 5) {
+      getMessage("🤝 It's a tie!");
+    } else if (humanScore === 5) {
+      getMessage("🏆 You won the game!");
+    } else {
+      getMessage("🤖 Computer won the game!");
     }
   }
-}*/
 
-//playGame();
-
-
-
-
+  container.prepend(message);
+});
