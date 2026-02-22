@@ -116,5 +116,18 @@ playBtn.addEventListener("click", () => {
 
 
 resetBtn.addEventListener("click", () => {
+  humanScore = 0;
+  computerScore = 0;
+  humanChoice = null;
+  round = 0;
 
+  resetSelection();
+  message.textContent = "";
+  message.classList.remove('on-message-active');
+
+  leftStars.forEach(star => star.classList.remove('active-star'));
+  rightStars.forEach(star => star.classList.remove('active-star'));
+
+  playBtn.disabled = false ;
+  playBtn.classList.remove('hidden');
 })
