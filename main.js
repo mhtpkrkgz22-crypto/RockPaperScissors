@@ -62,7 +62,7 @@ function getMessage(msg){
 
 function playRound(humanChoice, computerChoice) {
   if(message) {
-    message.remove('.on-message-active');
+    message.classList.remove('.on-message-active');
   }
 
   if (humanChoice === computerChoice) {
@@ -82,7 +82,6 @@ function playRound(humanChoice, computerChoice) {
   round++;
 
   container.prepend(message);
-  
 }
 
 playBtn.addEventListener("click", () => {
@@ -90,7 +89,7 @@ playBtn.addEventListener("click", () => {
     getMessage("⚠️ Please, Choice Any Icon! ⚠️");
     return;
   } else {
-    message.remove('.on-message-active');
+    message.classList.remove('.on-message-active');
   }
   if (humanScore === 5 || computerScore === 5) return;
 
@@ -98,7 +97,7 @@ playBtn.addEventListener("click", () => {
   playRound(humanChoice, comp);
 
   if(humanScore === 5 || computerScore === 5) {
-    message.remove('#message');
+    message.classList.remove('#message');
     resetSelection();
 
     if (humanScore === 5 && computerScore === 5) {
@@ -108,7 +107,14 @@ playBtn.addEventListener("click", () => {
     } else {
       getMessage("🤖 Computer won the game!");
     }
+    playBtn.disabled = true;
+    playBtn.classList.add("hidden");
   }
 
   container.prepend(message);
 });
+
+
+resetBtn.addEventListener("click", () => {
+
+})
