@@ -59,8 +59,8 @@ h1 {
     margin-right: 80px;
 }
 
-.on-message-active {
-    opacity: 1 !important;
+#message.on-message-active {
+    opacity: 1;
 }
 
 #message {
