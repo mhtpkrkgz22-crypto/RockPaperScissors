@@ -4,8 +4,8 @@ let humanChoice = null;
 let round = 0;
 
 const contant = document.querySelector('#contant');
-const leftStars = document.querySelectorAll('.left');
-const rightStars = document.querySelectorAll('.right');
+const leftStars = document.querySelector('.left');
+const rightStars = document.querySelector('.right');
 const container = document.querySelector('#container');
 const images = document.querySelector('#images');
 const playBtn = document.querySelector('#play-btn');
@@ -18,7 +18,7 @@ const message = document.querySelector('#message');
 
 function resetSelection() {
   [rock, paper, scissors].forEach(item => {
-    item.classList.remove("active", "selected-rock", "selected-paper", "selected-scissors", "not-selected");
+    item.classList.remove("selected-rock", "selected-paper", "selected-scissors", "not-selected");
   });
 }
 
@@ -61,6 +61,8 @@ function getMessage(msg){
 }
 
 function playRound(humanChoice, computerChoice) {
+  const leftStar = document.querySelectorAll('.left img');
+  const rightStar = document.querySelectorAll('.right img');
   if(message) {
     message.classList.remove('.on-message-active');
   }
@@ -73,10 +75,23 @@ function playRound(humanChoice, computerChoice) {
     (humanChoice === "paper" && computerChoice === "rock")
   ) {
     humanScore++;
-    getMessage(`Congratulations! 🎉 ${humanChoice} beats ${computerChoice}`)
+    getMessage(`Congratulations! 🎉 ${humanChoice} beats ${computerChoice}`);
+    for(let i = 0; i < leftStar.length; i++){
+      if(leftStar[i].src.includes('icons/empty-star.png')){
+        leftStar[i].src = 'icons/star-icon.png';
+        break;
+      }
+    }
+    console.log(humanScore)
   } else {
     computerScore++;
-    getMessage(`Ohh Noo! 🤖 ${computerChoice} beats ${humanChoice}`)
+    getMessage(`Ohh Noo! 🤖 ${computerChoice} beats ${humanChoice}`);
+    for(let i = 0; i < rightStar.length; i++){
+      if(rightStar[i].src.includes('icons/empty-star.png')){
+        rightStar[i].src = 'icons/star-icon.png';
+        break;
+      }
+    }
   }
 
   round++;
