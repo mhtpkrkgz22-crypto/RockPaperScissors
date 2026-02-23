@@ -14,6 +14,8 @@ const rock = document.querySelector('#rock-icon');
 const paper = document.querySelector('#paper-icon');
 const scissors = document.querySelector('#scissors-icon');
 const message = document.querySelector('#message');
+const leftStar = document.querySelectorAll('.left img');
+const rightStar = document.querySelectorAll('.right img');
 
 
 function resetSelection() {
@@ -60,12 +62,12 @@ function getMessage(msg){
   message.textContent = msg;
 }
 
+
 function playRound(humanChoice, computerChoice) {
-  const leftStar = document.querySelectorAll('.left img');
-  const rightStar = document.querySelectorAll('.right img');
   if(message) {
     message.classList.remove('.on-message-active');
   }
+
 
   if (humanChoice === computerChoice) {
     getMessage(`It's a tie. Both chose: ${humanChoice}`);
@@ -75,7 +77,7 @@ function playRound(humanChoice, computerChoice) {
     (humanChoice === "paper" && computerChoice === "rock")
   ) {
     humanScore++;
-    getMessage(`Congratulations! 🎉 ${humanChoice} beats ${computerChoice}`);
+    getMessage(`Congratulations! 🎉 ${humanChoice} 🤜🏼 ${computerChoice}`);
     for(let i = 0; i < leftStar.length; i++){
       if(leftStar[i].src.includes('icons/empty-star.png')){
         leftStar[i].src = 'icons/star-icon.png';
@@ -84,7 +86,7 @@ function playRound(humanChoice, computerChoice) {
     }
   } else {
     computerScore++;
-    getMessage(`Ohh Noo! 🤖 ${computerChoice} beats ${humanChoice}`);
+    getMessage(`Ohh Noo! 🤖 ${computerChoice} 🤜🏼 ${humanChoice}`);
     for(let i = 0; i < rightStar.length; i++){
       if(rightStar[i].src.includes('icons/empty-star.png')){
         rightStar[i].src = 'icons/star-icon.png';
@@ -114,9 +116,7 @@ playBtn.addEventListener("click", () => {
     message.classList.remove('#message');
     resetSelection();
 
-    if (humanScore === 5 && computerScore === 5) {
-      getMessage("🤝 It's a tie!");
-    } else if (humanScore === 5) {
+    if (humanScore === 5) {
       getMessage("🏆 You won the game!");
     } else {
       getMessage("🤖 Computer won the game!");
@@ -136,18 +136,16 @@ resetBtn.addEventListener("click", () => {
   round = 0;
 
   resetSelection();
+
   message.textContent = "";
   message.classList.remove('on-message-active');
+
+  playBtn.disabled = false ;
+  playBtn.classList.remove('hidden');
 
   const allStars = document.querySelectorAll('.left img, .right img');
     
     allStars.forEach(star => {
         star.src = 'icons/empty-star.png';
     });
-
-  leftStars.forEach(star => star.classList.remove('active-star'));
-  rightStars.forEach(star => star.classList.remove('active-star'));
-
-  playBtn.disabled = false ;
-  playBtn.classList.remove('hidden');
 })
