@@ -82,7 +82,6 @@ function playRound(humanChoice, computerChoice) {
         break;
       }
     }
-    console.log(humanScore)
   } else {
     computerScore++;
     getMessage(`Ohh Noo! 🤖 ${computerChoice} beats ${humanChoice}`);
@@ -139,6 +138,12 @@ resetBtn.addEventListener("click", () => {
   resetSelection();
   message.textContent = "";
   message.classList.remove('on-message-active');
+
+  const allStars = document.querySelectorAll('.left img, .right img');
+    
+    allStars.forEach(star => {
+        star.src = 'icons/empty-star.png';
+    });
 
   leftStars.forEach(star => star.classList.remove('active-star'));
   rightStars.forEach(star => star.classList.remove('active-star'));
