@@ -136,14 +136,6 @@ h1 {
     transform: translate(-65px, 0) scale(1.1);
 }
 
-.active {
-    transform: translate(150px, 0) scale(1.1);
-}
-
-.passive {
-    transform: none;
-}
-
 .selected-rock {
     transform: translate(65px, 0) scale(1.1);
 }
@@ -177,7 +169,7 @@ h1 {
 }
 
 .active-star {
-    
+    content: url("icons/star-icon.png");
 }
 
 
