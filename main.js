@@ -65,7 +65,7 @@ function getMessage(msg){
 
 function playRound(humanChoice, computerChoice) {
   if(message) {
-    message.classList.remove('.on-message-active');
+    message.classList.remove('on-message-active');
   }
 
 
@@ -105,7 +105,7 @@ playBtn.addEventListener("click", () => {
     getMessage("⚠️ Please, Choice Any Icon! ⚠️");
     return;
   } else {
-    message.classList.remove('.on-message-active');
+    message.classList.remove('on-message-active');
   }
   if (humanScore === 5 || computerScore === 5) return;
 
@@ -113,7 +113,7 @@ playBtn.addEventListener("click", () => {
   playRound(humanChoice, comp);
 
   if(humanScore === 5 || computerScore === 5) {
-    message.classList.remove('#message');
+    message.remove('#message');
     resetSelection();
 
     if (humanScore === 5) {
