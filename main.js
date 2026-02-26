@@ -1,14 +1,10 @@
 let humanScore = 0;
 let computerScore = 0;
 let humanChoice = null;
-let round = 0;
 
 const contant = document.querySelector('#contant');
 const title = document.querySelector('#title');
-const leftStars = document.querySelector('.left');
-const rightStars = document.querySelector('.right');
 const container = document.querySelector('#container');
-const images = document.querySelector('#images');
 const playBtn = document.querySelector('#play-btn');
 const resetBtn = document.querySelector('#reset-btn');
 const rock = document.querySelector('#rock-icon');
@@ -107,8 +103,6 @@ function playRound(humanChoice, computerChoice) {
     }
   }
 
-  round++;
-
   container.prepend(message);
 }
 
@@ -142,7 +136,6 @@ resetBtn.addEventListener("click", () => {
   humanScore = 0;
   computerScore = 0;
   humanChoice = null;
-  round = 0;
 
   resetSelection();
 
