@@ -4,6 +4,7 @@ let humanChoice = null;
 let round = 0;
 
 const contant = document.querySelector('#contant');
+const title = document.querySelector('#title');
 const leftStars = document.querySelector('.left');
 const rightStars = document.querySelector('.right');
 const container = document.querySelector('#container');
@@ -16,6 +17,17 @@ const scissors = document.querySelector('#scissors-icon');
 const message = document.querySelector('#message');
 const leftStar = document.querySelectorAll('.left img');
 const rightStar = document.querySelectorAll('.right img');
+const startBtn = document.querySelector('#start-btn');
+const mainBack = document.querySelector('#main-container');
+
+
+startBtn.addEventListener("click", () => {
+  contant.style.display = "flex";
+  title.style.display = "flex";
+  mainBack.classList.add('in-active');
+  startBtn.classList.add('hidden');
+
+});
 
 
 function resetSelection() {
@@ -113,7 +125,6 @@ playBtn.addEventListener("click", () => {
   playRound(humanChoice, comp);
 
   if(humanScore === 5 || computerScore === 5) {
-    message.remove('#message');
     resetSelection();
 
     if (humanScore === 5) {
@@ -124,8 +135,6 @@ playBtn.addEventListener("click", () => {
     playBtn.disabled = true;
     playBtn.classList.add("hidden");
   }
-
-  container.prepend(message);
 });
 
 
