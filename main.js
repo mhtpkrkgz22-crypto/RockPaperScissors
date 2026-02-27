@@ -1,152 +1,176 @@
 let humanScore = 0;
 let computerScore = 0;
 let humanChoice = null;
+const WIN_SCORE = 5;
 
-const contant = document.querySelector('#contant');
-const title = document.querySelector('#title');
-const container = document.querySelector('#container');
+const content = document.querySelector('.content');
+const title = document.querySelector('.title');
+const container = document.querySelector('.container');
 const playBtn = document.querySelector('#play-btn');
 const resetBtn = document.querySelector('#reset-btn');
 const rock = document.querySelector('#rock-icon');
 const paper = document.querySelector('#paper-icon');
 const scissors = document.querySelector('#scissors-icon');
-const message = document.querySelector('#message');
-const leftStar = document.querySelectorAll('.left img');
-const rightStar = document.querySelectorAll('.right img');
-const startBtn = document.querySelector('#start-btn');
-const mainBack = document.querySelector('#main-container');
+const message = document.querySelector('.message');
+const leftStar = document.querySelectorAll('.stars-left img');
+const rightStar = document.querySelectorAll('.stars-right img');
+const startBtn = document.querySelector('.start-btn');
+const overlay = document.querySelector('.overlay');
 
 
 startBtn.addEventListener("click", () => {
-  contant.style.display = "flex";
-  title.style.display = "flex";
-  mainBack.classList.add('in-active');
-  startBtn.classList.add('hidden');
-
+    content.style.display = "flex";
+    title.style.display = "flex";
+    startBtn.classList.add('hidden');
+    overlay.classList.add('hide-bg')
 });
 
 
 function resetSelection() {
-  [rock, paper, scissors].forEach(item => {
-    item.classList.remove("selected-rock", "selected-paper", "selected-scissors", "not-selected");
-  });
+    [rock, paper, scissors].forEach(item => {
+        item.classList.remove("selected-rock", "selected-paper", "selected-scissors", "not-selected");
+    });
+}
+
+function selectChoice(choice, element, selectedClass) {
+    resetSelection();
+    element.classList.add(selectedClass);
+
+    const arr = [rock, paper, scissors];
+
+    arr.forEach((item) => {
+        if (item !== element) item.classList.add('not-selected')
+    })
+
+    humanChoice = choice;
 }
 
 rock.addEventListener("click", () => {
-  resetSelection();
-  rock.classList.add("selected-rock");
-  paper.classList.add("not-selected");
-  scissors.classList.add("not-selected");
-
-  humanChoice = "rock";
+    selectChoice("rock", rock, 'selected-rock');
 });
 
 paper.addEventListener("click", () => {
-  resetSelection();
-  paper.classList.add("selected-paper");
-  rock.classList.add("not-selected");
-  scissors.classList.add("not-selected");
-
-  humanChoice = "paper";
+    selectChoice("paper", paper, 'selected-paper');
 });
 
 scissors.addEventListener("click", () => {
-  resetSelection();
-  scissors.classList.add("selected-scissors");
-  rock.classList.add("not-selected");
-  paper.classList.add("not-selected");
-
-  humanChoice = "scissors";
+    selectChoice("scissors", scissors, 'selected-scissors');
 });
 
 function getComputerChoice() {
-  const choices = ["rock", "paper", "scissors"];
-  let select = Math.floor(Math.random() * 3);
-  return choices[select];
+    const choices = ["rock", "paper", "scissors"];
+    return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function getMessage(msg){
-  message.classList.add('on-message-active');
-  message.textContent = msg;
+function addMessage(msg) {
+    message.classList.add('on-message-active');
+    message.textContent = msg;
 }
 
+function updateStar(direction) {
+    for (let i = 0; i < direction.length; i++) {
+        if (direction[i].src.includes('icons/empty-star.png')) {
+            direction[i].src = 'icons/star-icon.png';
+            break;
+        }
+    }
+}
+
+function checkWinner(human, computer) {
+    if (human === computer) return "tie";
+
+    if (
+        (human === "rock" && computer === "scissors") ||
+        (human === "scissors" && computer === "paper") ||
+        (human === "paper" && computer === "rock")
+    ) {
+        return "human";
+    }
+
+    return "computer";
+}
+
+function updateScore(result) {
+    if (result === "human") {
+        humanScore++;
+    } else if (result === "computer") {
+        computerScore++;
+    }
+}
+
+function updateMessage(result, humanChoice, computerChoice) {
+    if (result === "tie") {
+        addMessage(`It's a tie. Both chose: ${humanChoice}`);
+    }
+
+    if (result === "human") {
+        addMessage(`Congratulations! 🎉 ${humanChoice} 🤜🏼 ${computerChoice}`);
+    }
+
+    if (result === "computer") {
+        addMessage(`Ohh Noo! 🤖 ${computerChoice} 🤜🏼 ${humanChoice}`);
+    }
+}
 
 function playRound(humanChoice, computerChoice) {
-  if(message) {
-    message.classList.remove('on-message-active');
-  }
 
+    const result = checkWinner(humanChoice, computerChoice);
 
-  if (humanChoice === computerChoice) {
-    getMessage(`It's a tie. Both chose: ${humanChoice}`);
-  } else if (
-    (humanChoice === "rock" && computerChoice === "scissors") ||
-    (humanChoice === "scissors" && computerChoice === "paper") ||
-    (humanChoice === "paper" && computerChoice === "rock")
-  ) {
-    humanScore++;
-    getMessage(`Congratulations! 🎉 ${humanChoice} 🤜🏼 ${computerChoice}`);
-    for(let i = 0; i < leftStar.length; i++){
-      if(leftStar[i].src.includes('icons/empty-star.png')){
-        leftStar[i].src = 'icons/star-icon.png';
-        break;
-      }
+    updateScore(result);
+
+    updateMessage(result, humanChoice, computerChoice);
+
+    if (result === "human") {
+        updateStar(leftStar)
     }
-  } else {
-    computerScore++;
-    getMessage(`Ohh Noo! 🤖 ${computerChoice} 🤜🏼 ${humanChoice}`);
-    for(let i = 0; i < rightStar.length; i++){
-      if(rightStar[i].src.includes('icons/empty-star.png')){
-        rightStar[i].src = 'icons/star-icon.png';
-        break;
-      }
-    }
-  }
 
-  container.prepend(message);
+    if (result === "computer") {
+        updateStar(rightStar)
+    }
+
 }
 
 playBtn.addEventListener("click", () => {
-  if (!humanChoice) {
-    getMessage("⚠️ Please, Choice Any Icon! ⚠️");
-    return;
-  } else {
-    message.classList.remove('on-message-active');
-  }
-  if (humanScore === 5 || computerScore === 5) return;
-
-  const comp = getComputerChoice();
-  playRound(humanChoice, comp);
-
-  if(humanScore === 5 || computerScore === 5) {
-    resetSelection();
-
-    if (humanScore === 5) {
-      getMessage("🏆 You won the game!");
+    if (!humanChoice) {
+        addMessage("⚠️ Please, Choice Any Icon! ⚠️");
+        return;
     } else {
-      getMessage("🤖 Computer won the game!");
+        message.classList.remove('on-message-active');
     }
-    playBtn.disabled = true;
-    playBtn.classList.add("hidden");
-  }
+    if (humanScore === WIN_SCORE || computerScore === WIN_SCORE) return;
+
+    const comp = getComputerChoice();
+    playRound(humanChoice, comp);
+
+    if (humanScore === WIN_SCORE || computerScore === WIN_SCORE) {
+        resetSelection();
+
+        if (humanScore === WIN_SCORE) {
+            addMessage("🏆 You won the game!");
+        } else {
+            addMessage("🤖 Computer won the game!");
+        }
+        playBtn.disabled = true;
+        playBtn.classList.add("hidden");
+    }
 });
 
 
 resetBtn.addEventListener("click", () => {
-  humanScore = 0;
-  computerScore = 0;
-  humanChoice = null;
+    humanScore = 0;
+    computerScore = 0;
+    humanChoice = null;
 
-  resetSelection();
+    resetSelection();
 
-  message.textContent = "";
-  message.classList.remove('on-message-active');
+    message.textContent = "";
+    message.classList.remove('on-message-active');
 
-  playBtn.disabled = false ;
-  playBtn.classList.remove('hidden');
+    playBtn.disabled = false;
+    playBtn.classList.remove('hidden');
 
-  const allStars = document.querySelectorAll('.left img, .right img');
-    
+    const allStars = document.querySelectorAll('.stars-left img, .stars-right img');
+
     allStars.forEach(star => {
         star.src = 'icons/empty-star.png';
     });
